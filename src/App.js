@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-
+import  TabBar  from "./demo/Tabbar"
 function App() {
   return (
     <div className="App">
-      123
+      <TabBar></TabBar>
     </div>
   );
 }

@@ -20,7 +20,8 @@ class Index extends Component {
             { id: 1, text: "合租", imgSrc: nav2 },
             { id: 2, text: "地图找房", imgSrc: nav3 },
             { id: 3, text: "去出租", imgSrc: nav4 }
-        ] //导航栏数据
+        ], //导航栏数据
+        groups:[] //租房小组数据
     }
     async componentDidMount() {
         // 获取轮播图数据
@@ -39,7 +40,7 @@ class Index extends Component {
     getGroup = async () => {
         const res = await axios.get("/home/groups")
         console.log(res);
-        // this.setState({ navs: res.data.body })
+        this.setState({ groups: res.data.body })
     }
 
     render() {
@@ -85,6 +86,23 @@ class Index extends Component {
                     </div>)}
                 </div>
                 {/* 2 首页导航 结束 */}
+                {/* 3 租房小组 开始 */}
+                <div className={indexCss.index_groups}>
+                    <div className={indexCss.index_groups_title}> <span>租房小组</span> <a href="#">更多</a> </div>
+                    <div className={indexCss.index_groups_content}>
+                        {this.state.groups.map(v => <div className={indexCss.group_item} key={v.id} >
+                            <div className={indexCss.group_item_info}>
+                                <div className={indexCss.group_item_title}>{v.title}</div>
+                                <div className={indexCss.group_item_desc}>{v.desc}</div>
+                            </div>
+                            <div className={indexCss.group_item_img}>
+                                <img src={baseURL + v.imgSrc} alt="" />
+                            </div>
+                        </div>)}
+                    </div>
+                </div>
+                {/* 3 租房小组 结束 */}
+
             </div>
         );
     }

@@ -21,13 +21,16 @@ class Index extends Component {
             { id: 2, text: "地图找房", imgSrc: nav3 },
             { id: 3, text: "去出租", imgSrc: nav4 }
         ], //导航栏数据
-        groups:[] //租房小组数据
+        groups: [], //租房小组数据
+        news: [] // 最新资讯
     }
     async componentDidMount() {
         // 获取轮播图数据
         this.getSwiper();
-        // 获取导航栏数据
-        this.getGroup()
+        // 获取租房小组数据
+        this.getGroup();
+        // 获取最新资讯数据
+        this.getNews();
     }
 
     getSwiper = async () => {
@@ -39,8 +42,14 @@ class Index extends Component {
 
     getGroup = async () => {
         const res = await axios.get("/home/groups")
-        console.log(res);
+        // console.log(res);
         this.setState({ groups: res.data.body })
+    }
+
+    getNews = async () => {
+        const res = await axios.get("/home/news")
+        // console.log(res);
+        this.setState({ news: res.data.body })
     }
 
     render() {
@@ -76,6 +85,8 @@ class Index extends Component {
                         ))}
                     </Carousel>}
                 </div>
+                {/* 1 轮播图 结束 */}
+
                 {/* 2 首页导航 开始 */}
                 <div className={indexCss.index_nav}>
                     {this.state.navs.map(v => <div className={indexCss.nav_item}
@@ -86,6 +97,7 @@ class Index extends Component {
                     </div>)}
                 </div>
                 {/* 2 首页导航 结束 */}
+
                 {/* 3 租房小组 开始 */}
                 <div className={indexCss.index_groups}>
                     <div className={indexCss.index_groups_title}> <span>租房小组</span> <a href="#">更多</a> </div>
@@ -102,6 +114,26 @@ class Index extends Component {
                     </div>
                 </div>
                 {/* 3 租房小组 结束 */}
+
+                {/* 4 最新资讯 开始 */}
+                <div className={indexCss.index_news}>
+                    <div className={indexCss.index_news_title}>最新资讯</div>
+                    <div className={indexCss.index_news_content}>
+                        {this.state.news.map((v, i) => <div className={indexCss.news_item} key={i} >
+                            <div className={indexCss.news_item_img}>
+                                <img src={baseURL + v.imgSrc} alt="" />
+                            </div>
+                            <div className={indexCss.news_item_info}>
+                                <div className={indexCss.news_item_title}>{v.title}</div>
+                                <div className={indexCss.news_item_desc}>
+                                    <span>{v.from}</span>
+                                    <span>{v.date}</span>
+                                </div>
+                            </div>
+                        </div>)}
+                    </div>
+                </div>
+                {/* 4 最新资讯 结束 */}
 
             </div>
         );

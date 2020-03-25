@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import indexCss from "./index.module.scss"
 import { Carousel } from 'antd-mobile';
-import { baseURL } from "../../utils/request"
-import axios from "axios"
+import axios, { baseURL } from "../../utils/request"
 
 // 引入图片
 import nav1 from "../../assets/images/nav-1.png"
@@ -15,6 +14,8 @@ import nav4 from "../../assets/images/nav-4.png"
 class Index extends Component {
     state = {
         carouselList: [], // 轮播图数据
+        // 轮播图的默认高度
+        imgHeight: 176,
         navs: [
             { id: 0, text: "整租", imgSrc: nav1 },
             { id: 1, text: "合租", imgSrc: nav2 },
